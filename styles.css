@@ -248,6 +248,56 @@ input[type="checkbox"]:checked::after {
     display: none !important;
 }
 
+/* Speech Bubble Styles */
+.speech-bubble {
+    position: absolute;
+    background-color: white;
+    border-radius: 20px;
+    padding: 15px 20px;
+    max-width: 200px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: bubbleAppear 0.5s forwards, bubbleFade 0.5s 2.5s forwards;
+}
+
+.speech-bubble:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    transform: translateX(-50%) rotate(45deg);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.05);
+    z-index: -1;
+}
+
+@keyframes bubbleAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes bubbleFade {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 /* Delete */
 .delete-task {
     background: none;

@@ -127,6 +127,22 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   ];
 
+  // Array of encouraging messages for speech bubbles
+  const encouragingMessages = [
+    "Great job!",
+    "You're making progress!",
+    "Keep going!",
+    "You're awesome!",
+    "That's one more done!",
+    "Way to go!",
+    "You're crushing it!",
+    "That's the spirit!",
+    "You're doing great!",
+    "Proud of you!"
+  ];
+
+
+
   function removeAllListeners() {
     hoverListeners.forEach((listener) => {
       document.removeEventListener("mousemove", listener);
@@ -274,6 +290,38 @@ document.addEventListener("DOMContentLoaded", () => {
       circle.classList.remove("hidden");
     });
   }
+
+  // Function to show an encouraging message in a speech bubble
+function showEncouragementBubble() {
+  // Remove any existing speech bubbles first
+  const existingBubble = document.querySelector('.speech-bubble');
+  if (existingBubble) {
+    existingBubble.remove();
+  }
+
+  // Select a random encouraging message
+  const randomIndex = Math.floor(Math.random() * encouragingMessages.length);
+  const message = encouragingMessages[randomIndex];
+  
+  // Create the speech bubble
+  const speechBubble = document.createElement('div');
+  speechBubble.className = 'speech-bubble';
+  speechBubble.textContent = message;
+  
+  // Position the bubble above a deer
+  speechBubble.style.top = '40%';
+  speechBubble.style.left = '50%';
+  
+  // Add to document
+  document.body.appendChild(speechBubble);
+  
+  // Remove after animation completes (3 seconds)
+  setTimeout(() => {
+    if (speechBubble.parentNode) {
+      speechBubble.remove();
+    }
+  }, 3000);
+}
 
   // Updated hardcoded tasks with new categories and random selection
   const taskPool = {
@@ -669,6 +717,11 @@ document.addEventListener("DOMContentLoaded", () => {
       checkbox.addEventListener("change", () => {
         const originalIndex = tasks.indexOf(task);
         tasks[originalIndex].completed = checkbox.checked;
+
+        // Show encouraging message when task is completed
+if (checkbox.checked) {
+  showEncouragementBubble();
+}
 
         if (tasks[originalIndex].completed) {
           const deleteButton = taskItem.querySelector(".delete-task");
